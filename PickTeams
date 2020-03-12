@@ -30,9 +30,9 @@ for i in range(0, nPlayers):
     players.append(ele) # adding the element 
 
 def run_through_teams():
-  while len(players) > 0: # as long there are players in the list
+  while len(players) > 0: 
       for i in teams:
-        if len(players) > 0: #important for uneven group sizes
+        if len(players) > 0:
           add_player(i)
 
 teams = getTeams()
@@ -44,23 +44,3 @@ run_through_teams()
 for i in range(0, len(teams)):
     print('Team '+ str(i+1)+ ' players are ' + str(teams[i]))
     
-#print('Team A players are ' + teams[0])
-#print('Team B players are ' + teams[1])
-#print('Team C players are ' + teams[2])
-
-#if len(players) == 0:
- #   print("You have no Players")
-#elif len(players) % 2 != 0: # means when you divide it by 2, you DON'T get 0 left over.
- #   print("You have an ODD number of Players - must be EVEN")
-#else:
- #   while players != []: # While players list is not empty
-#        add_player(teamA)
- #       add_player(teamB)
- #       add_player(teamC)
-
-
-
- #   print("Remaining Players =", players)
-  #  print("Team A =", teamA)
- #   print("Team B =", teamB)
-#    print('Team C = ', teamC)
