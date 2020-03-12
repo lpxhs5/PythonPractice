@@ -1,0 +1,23 @@
+# This program uses 3 different methods to take the teams list and make a new list that contains only the first 3 letters of each element in that list.
+
+teams = ["WOLVES", "OWLS", "PANTHERS", "BEARS", "DRAGONS"]
+
+
+teams_short3 = []
+
+for i in range(len(teams)):
+    teams_short3.append(teams[int(i)][:3])
+print(teams_short3)    
+
+team_short2 = [teams[0][:3], teams[1][:3], teams[2][:3], teams[3][:3], teams[4][:3]]
+print(team_short2)
+
+team1 = teams[0]
+team2 = teams[1]
+team3 = teams[2]
+team4 = teams[3]
+team5 = teams[4]
+
+teams_short = [team1[:3], team2[:3], team3[:3],team4[:3],team5[:3]]
+
+print(teams_short)
