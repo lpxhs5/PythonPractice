@@ -1,0 +1,57 @@
+# There are 3 counting functions in this script.
+# This first one counts how many times a target item appears in a list. 
+# Just give it a target item and a list. Need to import random first to use each function.
+
+import random
+
+def countitems(target, itemlist):
+    result = 0
+    for item in itemlist:
+        if item == target:
+            result +=1
+    return result
+
+scores = []
+
+for x in range (0, 30):
+  scores.append(random.randint(0, 10))
+
+print(scores)
+
+top_scorers = countitems(10, scores) # Count function called here
+
+print("{0} learners got top marks".format(top_scorers))
+
+# This next function counts the number of string words in a list of strings. Just give it a target string and a list of strings. 
+
+import random
+
+def stringscount(target, itemlist):
+    result = 0
+    for item in itemlist:
+        if item == target:
+            result +=1
+    return result 
+
+strings = ['milk', 'eggs', 'flour', 'oil', 'milk', 'cake', 'milk']
+
+most_common = stringscount('milk', strings) # Count function called here
+
+print('The item appears in the list {0} times.'.format(most_common))
+
+# This function counts the number of vowels in a target word. Just give it a word.
+
+import random
+
+def vowelcount(target):
+    result = 0
+    vowels = 'aeiouAEIOU'
+    for item in vowels:
+        if item in target:
+            result +=1
+    return result 
+
+
+nvowels = vowelcount('TARGETWORD') # Count function called here
+
+print('The target word has {0} vowels.'.format(nvowels))
