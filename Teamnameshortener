@@ -1,4 +1,5 @@
 # This program uses 3 different methods to take the teams list and make a new list that contains only the first 3 letters of each element in that list.
+# This is basically me learning to use lists/index lists.
 
 teams = ["WOLVES", "OWLS", "PANTHERS", "BEARS", "DRAGONS"]
 
