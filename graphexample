@@ -1,0 +1,38 @@
+# This program generates a random set of test scores and counts how many test scores there are for each value between 0-10, then plots a graph of this. 
+
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plot
+ 
+import random
+
+def countitems(target, itemlist):
+    result = 0
+    for item in itemlist:
+        if item == target:
+            result +=1
+    return result
+
+scores = []
+num_scorers = []
+
+for x in range (0, 30):
+  scores.append(random.randint(0, 10))
+
+for i in range(0,11):
+    num_scorers.append(countitems(int(i), scores))
+
+#print("{0} learners got top marks".format(top_scorers)) 
+
+print(scores)
+print(num_scorers)
+ 
+ 
+plot.bar(range(11), num_scorers, align='center', alpha=0.5)
+
+plot.xticks(range(11))
+plot.ylabel('Score frequency')
+plot.title('Scores on a quiz')
+
+plot.show()
+plot.savefig(fname="Quiz Chart.png")
