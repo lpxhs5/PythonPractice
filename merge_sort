@@ -1,0 +1,42 @@
+# This function performs a merge sort on a list of vals.
+
+def merge(list_a, list_b):
+    list_sorted = []
+    # whilst list a and b aren't empty...
+    while list_a != [] and list_b != []:
+        # if the first val in list a is LESS THAN the first val in list b...
+        if list_a[0] < list_b[0]:
+            # then add list a's val to list_sorted.
+            list_sorted.append(list_a.pop(0))
+        else:
+            # else add list b's val to list sorted.
+            list_sorted.append(list_b.pop(0))
+
+    # if the length of list a is less than 1
+    if len(list_a) < 1:
+        # add the remaining vals in list b to list_sorted.
+        list_sorted += list_b
+    else:
+        list_sorted += list_a
+    return list_sorted
+
+
+def merge_sort(unsorted):
+    # if the length of unsorted is less than/equal to 1
+    if len(unsorted) <= 1:
+        # give unsorted list back - it's already fully sorted.
+        return unsorted
+    else:
+        # else - find the middle point of the unsorted list (// = divide and only return integer)
+        middle = len(unsorted) // 2 # rounding down if the list has an odd number of items
+        # using middle point, find front and back halves of unsorted list
+        # The list halves will continue to be split until each list is 1 or 0 in length.
+        # This shows recursion because the function calls itself.
+        front = merge_sort(unsorted[:middle])
+        back = merge_sort(unsorted[middle:])
+    # use the merge function to put the split lists back together in sorted order.
+    return merge(front, back)
+
+my_list = [5,4,3,2,1]
+mergedlist = merge_sort(my_list)
+print(mergedlist)
