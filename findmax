@@ -1,0 +1,12 @@
+# This function finds the maximum value in a list of values.
+
+def findmax(listofvals):
+    x = 0
+    for i in range (0, len(listofvals)):
+       if listofvals[i] > x:
+           x = listofvals[i]
+    return x
+    
+list1 = [10, 3, 45, 6, 54]
+x = findmax(list1)
+print(x)
