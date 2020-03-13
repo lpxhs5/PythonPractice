@@ -1,0 +1,12 @@
+# This function finds the minimum value in a list of values.
+
+def findmin(listofvals):
+    x = listofvals[0]
+    for i in range (0, len(listofvals)):
+       if listofvals[i] < x:
+           x = listofvals[i]
+    return x
+    
+list1 = [10, 3, 45, 6, 54, 2]
+x = findmin(list1)
+print(x)
