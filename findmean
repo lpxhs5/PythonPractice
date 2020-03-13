@@ -1,0 +1,20 @@
+# This program calculates the mean of a list of values.
+
+import random
+
+
+def findmean(listofvals):
+    nVals = len(listofvals)
+    sumVals = sum(listofvals)
+    m = sumVals/nVals
+    return m
+
+scores = []    
+
+#scores = [10, 20, 10, 20]
+
+for x in range (0, 30):
+  scores.append(random.randint(0, 10))
+  
+m = findmean(scores)
+print(m)
