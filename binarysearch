@@ -1,0 +1,30 @@
+def binarysearch(sorted_list, value):
+    
+    left = 0
+    # set right to the highest index in the list.
+    right = len(sorted_list) - 1
+    
+    while left <= right:
+        mid = int((right + left)/2)
+        if sorted_list[mid] > value:
+            right = mid -1
+        elif sorted_list[mid] < value:
+            left = mid + 1
+            
+        else: 
+            return mid + 1
+            
+    else:
+        if sorted_list[left]<sorted_list[right]:
+            return sorted_list[left]
+        else:
+            return sorted_list[right]
+    
+
+sorted_list = [1,2,3,5,6,7]
+    
+    
+
+   
+
+    
