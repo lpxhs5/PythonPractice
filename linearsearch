@@ -1,0 +1,12 @@
+def linearsearch():
+
+    mylist = input('What is your list? ')
+    target = input('What do you want to find? ')
+
+    found = False
+    for position in range(len(mylist)):
+        if mylist[position] == target:
+            print(mylist[position], "is at position", str(position+1) )
+            found = True
+    if found == False:
+        print('Could not find the item in the list')
