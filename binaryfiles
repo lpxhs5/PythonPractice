@@ -1,0 +1,17 @@
+# writing to binary file
+
+data = [100,24,255]
+buffer = bytes(data) # convert data to bytes
+print(buffer)
+f = open("binary.txt", "bw") # bw = binary write
+f.write(buffer)
+f.close()
+
+
+# reading from a binary file
+f = open("binary.txt", "br") # br = binary read
+binary = f.read() # read txt contents and save to variable called binary
+print(binary) 
+data = list(binary) # convert binary variable into a list again
+print(data)
+f.close()
