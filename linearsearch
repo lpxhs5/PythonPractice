@@ -1,6 +1,6 @@
-def linearsearch():
+def linearsearch(mylist):
 
-    mylist = input('What is your list? ')
+    #mylist = input('What is your list (without spaces)? ')
     target = input('What do you want to find? ')
 
     found = False
@@ -10,3 +10,8 @@ def linearsearch():
             found = True
     if found == False:
         print('Could not find the item in the list')
+
+
+#mylist = ['3', '4', '5']
+#mylist = ['Amy', 'Ben', 'Robin']
+mylist = ['3.25', '54.45', '4.35']
