@@ -1,0 +1,18 @@
+f = open("food.txt","r")
+
+# read contents of file into a variable called data, then print it.
+# data = f.read()
+# print(data)
+
+# can also be done with a for loop:
+for line in f:
+    print(line)
+
+f.close()
+
+# can also use:
+# with open("test.txt") as f:
+#    data = f.read()
+#    print(data)
+# The with statement is a python thing that makes things easier, 
+# it closes files automatically and can manage errors (incorrect file names). . 
