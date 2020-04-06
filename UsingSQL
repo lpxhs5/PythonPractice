@@ -1,0 +1,25 @@
+# How to interact with databases. We need to use SQL statements. SQL is another programming language.
+
+import sqlite3 # import sqlite3 library.
+conn = sqlite3.connect("computer_cards.db") # connect to the database file using .connect method.
+
+result = conn.execute("SELECT * FROM computer") # get data from the database using .execute method and an SQL statement.
+# * means all feilds - select all feilds from the 'computer' table.
+# this returns a 'cursor'. A cursor is how you access the data returned from your SQL statement, but the data needs to be fetched before you can use it.
+
+# to fetch the data using this cursor:
+computers = result.fetchall()
+
+# The computers variable is actually a list of lists. Each row is returned as a list of fields.
+
+# iterate over every list in the list of lists. Print each list, one by one.
+for computer in computers:
+    print(computer)
+    
+# to get an individual value, use an index:
+for computer in computers:
+    name = computer[0]   # fetches first element in each computer list only. Does this for each list because it's a loop.
+    print(name)
+    
+    
+conn.close() # need to close the connection to the database at the end.
