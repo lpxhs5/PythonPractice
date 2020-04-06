@@ -1,0 +1,27 @@
+# This code shows how to use dictionaries.
+
+# Each entry has a key and a value.
+foods  = {"Filbert":"Peaches", "Punchy":"Pears", "Bertha":"Apples"}
+
+# Printing values to screen using their keys.
+print(foods["Filbert"])
+print(foods['Punchy'])
+print(foods['Bertha'])
+
+# to add a new person - assign value to a new key in foods
+foods["Tammy"] = "Oranges"
+
+# to update an entry - it uses the update method (.update). 
+foods.update({"Punchy":"Cherries"})
+
+# you could also update a value by doing:
+foods["Bertha"] = "Plums"
+
+# to delete a person, you the del statement and specify the key. 
+del foods["Tammy"]
+
+
+print(foods)
+
+
+
