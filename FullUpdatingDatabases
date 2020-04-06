@@ -9,9 +9,11 @@ def create(name, cores, cpu_speed, ram, cost):
 	conn.commit()
 	
 def read(name):
+    # select all entries from computer table where name is 'whatever's in the name variable'.
 	select_sql = "SELECT * from computer WHERE name = '{}'".format(name)
-	result = conn.execute(select_sql)
+	result = conn.execute(select_sql) # execute this search
 	
+    # use .fetchone method (as opposed to .fetchall to fetch only one entry.
 	return result.fetchone()
 
 def update(cores, cpu_speed, ram, cost, name):
@@ -29,9 +31,10 @@ def delete(name):
 	
 	conn.commit()
 		
+
 command = input("Do you want to create, read, update or delete a card? ")
 
-if command.lower() == "create":
+if command == "create":
 	name = input("Name > ")
 	cores = input("Cores > ")
 	cpu_speed = input("CPU speed (GHz) > ")
@@ -42,14 +45,14 @@ if command.lower() == "create":
 	
 	print("Your card has been created")
 
-elif command.lower() == "read":
+elif command == "read":
 	
     name = input("Enter the name of the card that you want to read. > ")
     card = read(name)
     print(card)
-    
 
-elif command.lower() == "update":
+
+elif command == "update":
 	name = input("Enter the name of the card that you want to update > ")
 	cores = input("Cores > ")
 	cpu_speed = input("CPU speed (GHz) > ")
@@ -60,7 +63,7 @@ elif command.lower() == "update":
 	
 	print("Your card has been updated")
 	
-elif command.lower() == "delete":
+elif command == "delete":
 	name = input("Enter the name of the card that you want to delete. > ")
 	
 	delete(name)
