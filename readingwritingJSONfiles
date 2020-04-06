@@ -18,4 +18,11 @@ with open("neil.json", "w") as f: # use open method to create a new json file.
 # to import the json data back into the program:
 with open("neil.json", "r") as f:
     data2 = json.load(f) # use the .load method and store as data2
-    print(data2) # data2 is a dictionary, same as data. 
+    print(data2) # data2 is a dictionary, same as data.
+    
+# It's also possible to extract json files from the internet using the requests library.
+# This library can also be used to send data files over the internet.
+import requests
+r = requests.get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY") # data retrieved from internet and stored in object r.
+NASA = r.json() # Data in r is parsed from JSON data into a Python dictionary using r.json().
+print(NASA)
