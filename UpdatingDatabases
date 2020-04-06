@@ -1,0 +1,29 @@
+# This script will insert rows into a database.
+
+import sqlite3 # import sqlite3 library
+conn = sqlite3.connect("computer_cards.db") # connect to database
+
+# a function that will construct a SQL INSERT statement and execute it.
+def create(name, cores, cpu_speed, ram, cost):
+    # the .format method replaces the {} markers in the SQL statment with the values
+    # from the variables name, cores, etc. Notice the '' around the first {}. This is because name is a string.
+    insert_sql = "INSERT INTO computer(name, cores, cpu_speed, ram, cost) VALUES ('{}', {}, {}, {}, {})".format(name, cores, cpu_speed, ram, cost)
+
+# uses .execute method to execute the SQL statement.
+    conn.execute(insert_sql)
+
+# uses .commit method to commit the changes to the database.
+    conn.commit()
+    
+    
+print("Enter the details:")
+
+name = input("Name > ")
+cores = input("Cores > ")
+cpu_speed = input('CPU speed > ')
+ram = input('RAM > ')
+cost = input('Cost > ')
+
+create(name, cores, cpu_speed, ram, cost) # use the function
+
+conn.close() # close the connection to the database.
