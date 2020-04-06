@@ -1,0 +1,85 @@
+from time import time # Import time module. This uses UNIX time. 
+from random import randint
+
+import sqlite3
+conn = sqlite3.connect("computer_cards.db")
+
+def read_all_cards():
+    select_sql = "SELECT * from computer"
+    result = conn.execute(select_sql) # execute this search
+    # use .fetchone method (as opposed to .fetchall to fetch only one entry.
+    return result.fetchall()
+
+
+# This function inserts a new row into the 'picked' table of the database every time a card is picked. Uses SQL statements.
+def insert_picked(name):
+    insert_sql = "INSERT INTO picked(name, time) VALUES ('{}', {})".format(name, time())
+    conn.execute(insert_sql)
+    conn.commit()
+
+# This function picks a random card from the database and adds it to 'picked' table. 
+def pick_card():
+    cards = read_all_cards()
+    random_card = cards[randint(0, len(cards) - 1)]
+    insert_picked(random_card[0])
+    return random_card
+    
+# This function fetches the card that was last picked (last row added to the picked table when table in descending order).
+def read_last_picked():
+    result = conn.execute("SELECT * FROM picked ORDER BY time DESC")
+    return result.fetchone()
+
+# This function checks that the randomly picked card is not the same as the last picked card
+# if it is the same, a new card is picked.
+# This ensures two players don't draw the same card.
+def pick_card():
+    cards = read_all_cards()
+
+    last_picked_card = read_last_picked()
+
+    random_card = cards[randint(0, len(cards) - 1)]
+
+    while random_card[0] == last_picked_card[0]:
+        random_card = cards[randint(0, len(cards) - 1)]
+# Then adds this card to 'picked' table in the database. 
+    insert_picked(random_card[0])
+    return random_card
+    
+    # START GAME
+    
+player = input("Are you player (1) or (2) > ")
+# Set which players always starts
+choosing_player = "1"
+
+
+# Need to set how many rounds to be played.
+roundnum = input('How many rounds would you like to play? ')
+
+# On each round, it waits till both players are ready.
+for round in range(int(roundnum)):
+
+    input("Press enter to pick a card when both players are ready > ")
+    
+# picks a card for the player and prints it - it also checks each player has a different card. 
+    card = pick_card()
+    card_text = "{}, cores={}, speed={}GHz, RAM={}MB, cost={}$".format(card[0], card[1], card[2], card[3], card[4])
+    print(card_text)
+    
+    # ask who won.
+    print("Player " + choosing_player + " picks.")
+
+    winner = input("Did you win? (Y)es, (N)o, (D)raw > ").lower()
+    
+    # switch the picking player based on who won.
+    if winner == "y":
+        choosing_player = player
+    elif winner == "n":
+        choosing_player = "2" if player == "1" else "1"
+       # The line above is a ternary operator. It assigns a value dependent on whether
+       # a condition is true or false. Here, choosing_player will equal either: '2' if 
+    # player is equal to '1' or '1' if player is equal to '2'. It's like an if/
+    # else statement. Like:
+    #if player == "1":
+    #   choosing_player = "2"
+    #else:
+    #   choosing_player = "1"
