@@ -1,3 +1,5 @@
+# This script creates, reads, updates and deletes entries from a database.
+
 import sqlite3
 conn = sqlite3.connect("computer_cards.db")
 
