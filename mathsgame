@@ -1,12 +1,10 @@
 
 try:
-    f = open('mathsgamehighscore.txt', 'r')
-    highscore = f.read()
-    f.close()
-
-    highscore = int(highscore)
-    print("The highest score previously was ")
-    print(highscore)
+    print("The 10 highest scores previously were")
+    with open("mathsgamehighscore.txt", "r") as f:
+        highscore = f.read()
+        print(highscore)
+    
 
 except:
     print("Creating a new mathgamehighscore.txt file")
@@ -16,60 +14,75 @@ except:
     highscore = 0
 
 
-    Play = True
-    while Play == True:
-        score = 0
+Play = True
+while Play == True:
+    score = 0
+    scores = [] # two blank lists to load data to.
+    names = []
         
-        print("Welcome to the Maths Quiz")
-        print("Can you answer three questions and score maximum points?")
-        print("Question 1: What is the product of 2x2x2?")
-        answer = int(input("Your answer :>> "))
-        
-        if answer == 8:
-            print("Correct")
-            score = score + 1
-            print("Your score is ", score)
-        else:
-            print("Incorrect, the answer is 8")
-            print("Your score is ", score)
-            
-        print("Question 2: What is the product of 1x1x2?")
-        answer = int(input("Your answer :>> "))
-        
-        if answer == 2:
-            print("Correct")
-            score = score + 1
-            print("Your score is ", score)
-        else:
-            print("Incorrect, the answer is 2")
-            print("Your score is ", score)
-        
-        print("Question 3: What is the product of 20x2x1?")
-        answer = int(input("Your answer :>> "))
-        
-        if answer == 40:
-            print("Correct")
-            score = score + 1
-            print("Your score is ", score)
-        else:
-            print("Incorrect, the answer is 40")
-            print("Your score is ", score)
-        
-        if score >= highscore:
-            highscore = score
-            print("You have set a new highscore")
-            highscore = str(highscore)
-            f = open('mathsgamehighscore.txt', 'w')
-            f.write(highscore)
-            f.close()
-        else:
-            print('Better luck next time')
-            
+    with open("mathsgamehighscore.txt", 'r') as file: # reads data from txt into object called file.
+        for line in file: # reads each line of the file one by one.
+            line = line.strip("\n") # remove line break
+            line = line.split(" ") # converts contents of line into a list (remove space)
+            names.append(line[0]) # Adds first element of the line to names
+            scores.append(int(line[1])) # and second element of the line to scores.
+
+    print("Welcome to the Maths Quiz")
+    currentname = input('What is your name? ')
+    print("Can you answer three questions and score maximum points?")
+    print("Question 1: What is the product of 2x2x2?")
+    answer = int(input("Your answer :>> "))
+
+    if answer == 8:
+        print("Correct")
+        score = score + 1
+        print("Your score is ", score)
+    else:
+        print("Incorrect, the answer is 8")
+        print("Your score is ", score)
+
+    print("Question 2: What is the product of 1x1x2?")
+    answer = int(input("Your answer :>> "))
+
+    if answer == 2:
+        print("Correct")
+        score = score + 1
+        print("Your score is ", score)
+    else:
+        print("Incorrect, the answer is 2")
+        print("Your score is ", score)
+
+    print("Question 3: What is the product of 20x2x1?")
+    answer = int(input("Your answer :>> "))
+
+    if answer == 40:
+        print("Correct")
+        score = score + 1
+        print("Your score is ", score)
+        Play = False
+    else:
+        print("Incorrect, the answer is 40")
+        print("Your score is ", score) 
         Play = False
 
-# could have also done:
-# with open("highscore.txt", "r") as f:
-    # highscore = f.read()
 
-# with open("highscore.txt", "w") as f:
-    # f.write(str(highscore))
+
+position = 0
+for compare_score in scores: # for each score in the scores list...
+    if score < compare_score: # check if current score is less than the score you are reading.
+        position = position + 1 # add 1 to position
+scores.insert(position, score) # insert current score at this position in scores list
+names.insert(position, currentname) # insert current name at this position in names list
+    
+scores = scores[:10] #  only top 10 scores/names are needed, so trim the list.
+names = names[:10]
+           
+    
+print("HIGHSCORES")
+with open("mathsgamehighscore.txt", 'w') as file:
+    for i in range(len(scores)):
+        file.write(names[i] + " " + str(scores[i]) + "\n") # write each element of the lists to the txt file.
+        print(names[i] + " " + str(scores[i]))
+    
+
+
