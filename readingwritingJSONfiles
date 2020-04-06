@@ -1,0 +1,21 @@
+# This script says you how to use json files. Json files can store different data types
+# and offer more flexibility than csv files. 
+# json files are similar to python dictionaries in that they use a key-value structure.
+
+# We are going to store some data in the json format.
+
+import json # import json library
+data = {
+"Name": "Neil Armstrong", # a string
+"Age": 82, # an integer
+"Hobbies": ["Aircraft design", "Fishing", "Astronaut"] # a list of strings
+}
+
+with open("neil.json", "w") as f: # use open method to create a new json file.
+    json.dump(data, f) # use dump method to write the dictionary to the new file.
+    
+
+# to import the json data back into the program:
+with open("neil.json", "r") as f:
+    data2 = json.load(f) # use the .load method and store as data2
+    print(data2) # data2 is a dictionary, same as data. 
