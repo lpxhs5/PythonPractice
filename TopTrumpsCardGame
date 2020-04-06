@@ -188,5 +188,7 @@ print('Thanks for playing!')
     #else:
     #   choosing_player = "1"
     
-   
+   # Message to Future Me: 
+   # Instead of asking the user to enter what the other player's card was, you can find this yourself because 
+   # it'll be one of the last 2 rows entered into the result table of the database.
 
