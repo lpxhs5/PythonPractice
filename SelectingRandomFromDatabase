@@ -1,0 +1,27 @@
+# A script for selecting a random entry from a database
+
+import sqlite3 # import modules
+from random import randint
+conn = sqlite3.connect("computer_cards.db") # connect to database
+
+# function to read all entries in the data base.
+def read_all_cards():
+    # it uses SQL statements to read all entries in the computer table and saves them in result variable.
+    result = conn.execute("SELECT * FROM computer")
+    # fetches all entries.
+    return result.fetchall()
+    
+# function to pick a random entry from the database.
+def pick_card():
+    # uses the above function to make computer read all the entries.
+    cards = read_all_cards()
+    # len(cards - 1) is the highest index in the cards variable (max no. of cards)
+    # The number in the square brackets will be a random number between 0 and the highest index
+    # Here, we pick a random card.
+    random_card = cards[randint(0, len(cards) - 1)]
+    return random_card
+
+card = pick_card()
+print(card)
+
+conn.close() # close connection to database. 
