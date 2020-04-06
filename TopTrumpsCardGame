@@ -53,6 +53,18 @@ def create(card1, card2, winner):
 	
 	conn.commit()
 
+def read(name):
+    # select all entries from result table where name is 'whatever's in the name variable'.
+    select_sql = "SELECT * from result WHERE winner = '{}'".format(name)
+    result = conn.execute(select_sql) # execute this search
+    cardWins = result.fetchall()
+    numberoftimesCardHasWon = 0
+    
+    for win in cardWins:
+        numberoftimesCardHasWon+= 1
+        
+    return numberoftimesCardHasWon
+
 
     # START GAME
 
@@ -103,10 +115,19 @@ for round in range(int(roundnum)):
         winner = card_text
         if player == '1':
             player1score+= 1
+            numberoftimesCardHasWon = read(card1)
+            print('This card has won ' + str(numberoftimesCardHasWon) + ' times before')
             card2 = input('What was player 2\'s card? ')
+            numberoftimesCardHasWon = read(card2)
+            print('Their card has won ' + str(numberoftimesCardHasWon) + ' times before')
+            
         elif player == '2':
             player2score+= 1
+            numberoftimesCardHasWon = read(card2)
+            print('This card has won ' + str(numberoftimesCardHasWon) + ' times before')
             card1 = input('What was player 1\'s card? ')
+            numberoftimesCardHasWon = read(card1)
+            print('Their card has won ' + str(numberoftimesCardHasWon) + ' times before')
             
         create(card1, card2, winner)
         
@@ -115,12 +136,21 @@ for round in range(int(roundnum)):
         choosing_player = "2" if player == "1" else "1"
         if player == '1':
             player2score+= 1
+            numberoftimesCardHasWon = read(card1)
+            print('Your card has won ' + str(numberoftimesCardHasWon) + ' times before')
             card2 = input('What was player 2\'s card? ')
             winner = card2
+            numberoftimesCardHasWon = read(card2)
+            print('Their card has won ' + str(numberoftimesCardHasWon) + ' times before')
+            
         elif player == '2':
             player1score+= 1
+            numberoftimesCardHasWon = read(card2)
+            print('Your card has won ' + str(numberoftimesCardHasWon) + ' times before')
             card1 = input('What was player 1\'s card? ')
             winner = card1
+            numberoftimesCardHasWon = read(card1)
+            print('Their card their won ' + str(numberoftimesCardHasWon) + ' times before')
             
         create(card1, card2, winner)
         
