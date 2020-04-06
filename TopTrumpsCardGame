@@ -1,4 +1,4 @@
-from time import time # Import time module. This uses UNIX time. 
+from time import time # Import time module. This uses UNIX time.
 from random import randint
 
 import sqlite3
@@ -17,13 +17,13 @@ def insert_picked(name):
     conn.execute(insert_sql)
     conn.commit()
 
-# This function picks a random card from the database and adds it to 'picked' table. 
+# This function picks a random card from the database and adds it to 'picked' table.
 def pick_card():
     cards = read_all_cards()
     random_card = cards[randint(0, len(cards) - 1)]
     insert_picked(random_card[0])
     return random_card
-    
+
 # This function fetches the card that was last picked (last row added to the picked table when table in descending order).
 def read_last_picked():
     result = conn.execute("SELECT * FROM picked ORDER BY time DESC")
@@ -41,12 +41,30 @@ def pick_card():
 
     while random_card[0] == last_picked_card[0]:
         random_card = cards[randint(0, len(cards) - 1)]
-# Then adds this card to 'picked' table in the database. 
+# Then adds this card to 'picked' table in the database.
     insert_picked(random_card[0])
     return random_card
-    
+
+
+def create(card1, card2, winner):
+	insert_sql = "INSERT INTO result(card1, card2, winner) VALUES ('{}', '{}', '{}')".format(card1, card2, winner)
+	
+	conn.execute(insert_sql)
+	
+	conn.commit()
+
+
     # START GAME
-    
+
+print('''
+In this game, each player will be given a card. 
+The card will list attributes of a computer, such as: number of cores, CPU speed, RAM and cost.
+On each players' turn, the player will pick one attribute on their card.
+Both players will compare the value on their cards that corresponds to this attribute.
+The player with the highest value wins! \n''')
+
+input("Press enter to play > ")
+
 player = input("Are you player (1) or (2) > ")
 # Set which players always starts
 choosing_player = "1"
@@ -55,31 +73,90 @@ choosing_player = "1"
 # Need to set how many rounds to be played.
 roundnum = input('How many rounds would you like to play? ')
 
+player1score = 0
+player2score = 0
+
 # On each round, it waits till both players are ready.
 for round in range(int(roundnum)):
 
     input("Press enter to pick a card when both players are ready > ")
-    
-# picks a card for the player and prints it - it also checks each player has a different card. 
+
+# picks a card for the player and prints it - it also checks each player has a different card.
     card = pick_card()
     card_text = "{}, cores={}, speed={}GHz, RAM={}MB, cost={}$".format(card[0], card[1], card[2], card[3], card[4])
     print(card_text)
     
+    if player == '1':
+        card1 = card_text
+    elif player == '2':
+        card2 = card_text
+
     # ask who won.
     print("Player " + choosing_player + " picks.")
 
-    winner = input("Did you win? (Y)es, (N)o, (D)raw > ").lower()
-    
+    winningplayer = input("Did you win? (Y)es, (N)o, (D)raw > ").lower()
+
     # switch the picking player based on who won.
-    if winner == "y":
+    if winningplayer == "y":
+        print('Well done!')
         choosing_player = player
-    elif winner == "n":
+        winner = card_text
+        if player == '1':
+            player1score+= 1
+            card2 = input('What was player 2\'s card? ')
+        elif player == '2':
+            player2score+= 1
+            card1 = input('What was player 1\'s card? ')
+            
+        create(card1, card2, winner)
+        
+    elif winningplayer == "n":
+        print('Better luck next time!')
         choosing_player = "2" if player == "1" else "1"
-       # The line above is a ternary operator. It assigns a value dependent on whether
-       # a condition is true or false. Here, choosing_player will equal either: '2' if 
+        if player == '1':
+            player2score+= 1
+            card2 = input('What was player 2\'s card? ')
+            winner = card2
+        elif player == '2':
+            player1score+= 1
+            card1 = input('What was player 1\'s card? ')
+            winner = card1
+            
+        create(card1, card2, winner)
+        
+    elif winningplayer == 'd':
+        print('Oh well!')
+        choosing_player = player
+        
+    else:
+        print('Invalid input, need to input Y, N or D') 
+
+print('\n')
+print('GAME OVER')
+print('Final scores')
+print('Player 1: ' + str(player1score))
+print('Player 2: ' + str(player2score))
+if player1score > player2score:
+    print('Player 1 wins!')
+elif player1score < player2score:
+    print('Player 2 wins!')
+else:
+    print('It\'s a draw!')
+
+print('\n')   
+print('Thanks for playing!')
+    
+    
+    
+    # Personal Notes - Please ignore!
+    # The line 'choosing_player = "2" if player == "1" else "1"' above is a ternary operator. It assigns a value dependent on whether
+    # a condition is true or false. Here, choosing_player will equal either: '2' if
     # player is equal to '1' or '1' if player is equal to '2'. It's like an if/
     # else statement. Like:
     #if player == "1":
     #   choosing_player = "2"
     #else:
     #   choosing_player = "1"
+    
+   
+
