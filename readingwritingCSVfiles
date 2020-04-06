@@ -1,0 +1,27 @@
+# Reading/writing to CSV files using the python csv library.
+
+import csv # imports csv library.
+with open('foods.csv') as csvfile: # opens csv file as csvfile
+    favourites = csv.reader(csvfile, delimiter=',') # reads file using csv.reader() method and stores the data in favourites.
+    for row in favourites: # iterating over each row in favourites.
+        print(row) 
+    
+name = "Isabelle"
+food = "Cherries"
+with open('foods.csv', mode='a') as csvfile: # open in append mode
+    favourites = csv.writer(csvfile, delimiter=',') # uses csv.writer() method to prepare the file to be written to and sets delimiter to comma (separates each data element).
+    #  This configuration is saved into a variable called favourites. 
+    favourites.writerow([name,food]) # writes a new row with a list containing the contents of the name and food variables.
+    
+
+# You could also use standard file handling methods to read/write to csv files
+# But using the csv library is better
+# eg you can use csv.reader() to read in any data not in ' ' as a float type using the
+# quoting=csv.QUOTE_NONNUMERIC argument:
+
+#import csv
+#with open('numbers.csv', newline= '') as csvfile:
+#    favourites = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
+#    print(type(favourites))
+#    for row in favourites:
+#        print(type(row[0]), type(row[1]))
